@@ -22,13 +22,14 @@
 
             // 商品用のクラス定義
             class Item {
-                static number = 1;
+                static number = 0;
                 constructor(name, price, stock) {
+                    Item.number++;
                     this.id = Item.number;
                     this.name = name;
                     this.price = price;
                     this.stock = stock;
-                    Item.number++;
+
                 }
 
                 // 商品一覧の表示関数
@@ -48,6 +49,8 @@
                         console.log("商品番号: "+this.id+", 商品名: "+this.name+"を購入します。");
                         // 課題4-2. ここにコードを書く
                         // 購入による商品の在庫削減処理
+                        this.stock--;
+                        console.log("残りは" + this.stock + "個です")
                         
                         // 課題4-3. ここにコードを書く
                         // 在庫用のエレメントを抽出し、HTML内の個数を更新
@@ -71,6 +74,11 @@
 
             // 課題4-2. ここにコードを書く
             // 商品表の作成
+            function func1(i){ item_list[i].buyItem();}
+            for (let i = 0; i< item_list.length; i++) {
+                itemArea.innerHTML += `<tr><td>${item_list[i].name}</td><td>${item_list[i].price}</td><td>${item_list[i].stock}</td><td><button type="button" onclick="func1(${i});">購入</button></td></tr>`
+            }
+
 
             // クリックイベント時の購入処理の設定
             for(let i=0; i<item_list.length; i++) {
