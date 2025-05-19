@@ -20,6 +20,10 @@
                 { id: 8, name: "紅茶", price: 140, stock: 6 }
             ]
 
+            //財布用
+            let Saihu = 1000;
+            document.body.insertAdjacentHTML("beforeend", `<p>所持金:<span id="money">${Saihu}</span>円</p>`);
+
             // 商品用のクラス定義
             class Item {
                 static number = 0;
@@ -47,10 +51,23 @@
                 buyItem() {          
                     if (this.stock >= 1) { 
                         console.log("商品番号: "+this.id+", 商品名: "+this.name+"を購入します。");
+
+                        //財布用
+                        if (Saihu >= this.price){
+                            Saihu = Saihu - this.price;
+                            document.getElementById("money").innerText = Saihu;
+                            console.log(this.name + "を購入しました。 残金は" + Saihu + "円です。")
+                        } 
+                        else {
+                            console.log("残金が足りません");
+                            return;
+                        }
+
                         // 課題4-2. ここにコードを書く
                         // 購入による商品の在庫削減処理
                         this.stock--;
-                        console.log("残りは" + this.stock + "個です")
+                        console.log("残りは" + this.stock + "個です");
+
                         
                         // 課題4-3. ここにコードを書く
                         // 在庫用のエレメントを抽出し、HTML内の個数を更新
